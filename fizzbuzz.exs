@@ -13,7 +13,7 @@ end
 IO.puts "FizzBuzz: #{fizzbuzz_word.(0, 0, 1)}"
 IO.puts "Fizz: #{fizzbuzz_word.(0, 1, 1)}"
 IO.puts "Buzz: #{fizzbuzz_word.(1, 0, 1)}"
-IO.puts "c (15): #{fizzbuzz_word.(3, 2, 15)}"
+IO.puts "c (15): #{fizzbuzz_word.(1, 1, 15)}"
 
 IO.puts "\n------------------------------\n"
 
