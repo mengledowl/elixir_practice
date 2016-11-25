@@ -5,9 +5,7 @@ fizzbuzz_word = fn
 	_, _, c -> c
 end
 
-fizzbuzz = fn n ->
-	fizzbuzz_word.(rem(n, 3), rem(n, 5), n)
-end
+fizzbuzz = fn n -> fizzbuzz_word.(rem(n, 3), rem(n, 5), n) end
 
 # test fizzbuzz_word
 IO.puts "FizzBuzz: #{fizzbuzz_word.(0, 0, 1)}"
