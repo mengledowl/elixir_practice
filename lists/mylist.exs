@@ -13,8 +13,11 @@ defmodule MyList do
 
 	def sum(list), do: _sum(list, 0)
 
+	def reduce([], value, _), do: value
+	def reduce([head | tail], value, func), do: reduce(tail, func.(head, value), func)
+
 	# private
-	
+
 	defp _sum([], total), do: total
 	defp _sum([head | tail], total), do: _sum(tail, head + total)
 end
