@@ -16,6 +16,9 @@ defmodule MyList do
 	def reduce([], value, _), do: value
 	def reduce([head | tail], value, func), do: reduce(tail, func.(head, value), func)
 
+	def mapsum([], _), do: 0
+	def mapsum([head | tail], func), do: func.(head) + mapsum(tail, func)
+
 	# private
 
 	defp _sum([], total), do: total
