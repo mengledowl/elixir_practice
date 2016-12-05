@@ -19,6 +19,9 @@ defmodule MyList do
 	def mapsum([], _), do: 0
 	def mapsum([head | tail], func), do: func.(head) + mapsum(tail, func)
 
+	def max([high]), do: high
+	def max([head | tail]), do: Kernel.max(head, max(tail))
+
 	# private
 
 	defp _sum([], total), do: total
