@@ -30,6 +30,15 @@ defmodule MyList do
 	def flatten([head | tail]), do: flatten(head) ++ flatten(tail)
 	def flatten(head), do: [head]
 
+	# José Valim's version (for reference and b/c it's a cool implementation w/ tail recursion)
+	defmodule JVList do
+		def flatten(list), do: do_flatten(list, [])
+
+		def do_flatten([h | t], list) when is_list(h), do: do_flatten(h, do_flatten(t, list))
+		def do_flatten([h | t], list), do: [h | do_flatten(t, list)]
+		def do_flatten([], list), do: list
+	end
+
 	# private
 
 	defp _sum([], total), do: total
