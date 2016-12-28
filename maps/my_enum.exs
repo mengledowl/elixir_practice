@@ -13,4 +13,10 @@ defmodule MyEnum do
       filter(tail, func)
     end
   end
+
+  def split([head | tail], num) when num > 0 do
+    {left, right} = split(tail, num - 1)
+    {[head | left], right}
+  end
+  def split(list, _), do: {[], list}
 end
