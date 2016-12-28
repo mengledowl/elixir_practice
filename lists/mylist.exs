@@ -26,6 +26,10 @@ defmodule MyList do
 	def caesar([head | tail], n) when head + n <= ?z, do: [head + n | caesar(tail, n)]
 	def caesar([head | tail], n), do: [head + n-26 | caesar(tail, n)]
 
+	def flatten([]), do: []
+	def flatten([head | tail]), do: flatten(head) ++ flatten(tail)
+	def flatten(head), do: [head]
+
 	# private
 
 	defp _sum([], total), do: total
