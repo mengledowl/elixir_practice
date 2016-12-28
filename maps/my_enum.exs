@@ -19,4 +19,6 @@ defmodule MyEnum do
     {[head | left], right}
   end
   def split(list, _), do: {[], list}
+
+  def take(list, num), do: elem split(list, num), 0
 end
