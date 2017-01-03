@@ -1,13 +1,11 @@
 defmodule Taxes do
   def add_tax(rates, orders) do
-    for order <- orders do
-      amount = elem(List.keyfind(order, :net_amount, 0), 1)
-      ship_to = elem(List.keyfind(order, :ship_to, 0), 1)
+    Enum.map(orders, &(add_total(&1, rates)))
+  end
 
-      k = List.keyfind(rates, ship_to, 0, {:e, 0})
-      rate = elem(k, 1)
-      order ++ [total_amount: amount + (amount * rate)]
-    end
+  def add_total(order = [id: _, ship_to: ship, net_amount: amount], rates) do
+    rate = Keyword.get(rates, ship, 0)
+    Keyword.put(order, :total_amount, amount + (amount * rate))
   end
 end
 
