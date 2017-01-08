@@ -11,4 +11,7 @@ defmodule MyString do
 
   defp _is_only_ascii([head | _]) when head < ?\s, do: false
   defp _is_only_ascii(list), do: List.last(list) <= ?~
+
+  # after viewing the forum posts
+  def only_ascii_2(list), do: Enum.all?(list, &(&1 in ?\s..?~))
 end
