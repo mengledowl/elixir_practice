@@ -14,4 +14,11 @@ defmodule MyString do
 
   # after viewing the forum posts
   def only_ascii_2(list), do: Enum.all?(list, &(&1 in ?\s..?~))
+
+  def capitalize_sentences(s) do
+    s
+    |> String.split(~r/\.\s?/)
+    |> Enum.map(&String.capitalize(&1))
+    |> Enum.join(". ")
+  end
 end
