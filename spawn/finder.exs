@@ -1,9 +1,9 @@
 defmodule Finder do
   import Scheduler
 
-  def count_all_occurrences do
-    files = File.ls!("//Users/mattengledowl")
-    |> Enum.map(&("//Users/mattengledowl/#{&1}"))
+  def count_all_occurrences(query, path \\ "/") do
+    files = File.ls!(path)
+    |> Enum.map(&({query, "#{path}/#{&1}"}))
     count = Enum.count(files)
 
     Scheduler.run(count, Finder, :find_occurrence, files)
@@ -16,7 +16,7 @@ defmodule Finder do
     send(scheduler, { :ready, self })
 
     receive do
-      {:fib, next, client} ->
+      {:continue, next, client} ->
         send client, {:answer, next, occurrence(next), self}
         find_occurrence(scheduler)
       {:shutdown} ->
@@ -24,12 +24,8 @@ defmodule Finder do
     end
   end
 
-  defp occurrence(next), do: File.read(next) |> count_in_file
+  defp occurrence({query, next}), do: File.read(next) |> count_in_file(query)
 
-  defp count_in_file({:ok, bin}), do: count(bin, 0)
-  defp count_in_file({:error, :eisdir}), do: 0
-
-  defp count(<<32, 99, 97, 116, 32, tail :: binary>>, val), do: count(tail, val + 1)
-  defp count(<<head, tail :: binary>>, val), do: count(tail, val)
-  defp count(_, val), do: val
+  defp count_in_file({:ok, bin}, query), do: Regex.scan(~r/#{query}/, bin) |> length
+  defp count_in_file({:error, reason}, _), do: 0
 end
